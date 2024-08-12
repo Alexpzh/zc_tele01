@@ -4,7 +4,7 @@ from aiogram.types import Message
 from aiogram.filters import CommandStart, Command
 
 from config import TOKEN
-import random
+import weather
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
@@ -24,7 +24,9 @@ async def help(message: Message):
 
 @dp.message(CommandStart())
 async def start(message : Message):
-    await message.answer('Привет! Я бот')
+    city = F.text
+    weather_text = weather.get_weather(city)
+    await message.answer(f'Погода в {city}: {weather_text}')
 
 
 
